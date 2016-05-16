@@ -16,10 +16,10 @@ public class WordCountTopologyMain {
     public static void main(String[] args) throws InterruptedException {
         //Topology definition
         TopologyBuilder builder = new TopologyBuilder();
-        builder.setSpout("word-reader",new WordReader(), 3);
+        builder.setSpout("word-reader",new WordReader(), 1);
         builder.setBolt("word-normalizer", new WordNormalizer(), 2)
                 .shuffleGrouping("word-reader");
-        builder.setBolt("word-counter", new WordCounter(),1)
+        builder.setBolt("word-counter", new WordCounter(),2)
                 .fieldsGrouping("word-normalizer", new Fields("word"));
 
         //Configuration
